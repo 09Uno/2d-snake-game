@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    
+    <title>cobrinha</title>
+    <style>
+
+        .pontos{
+            margin-left:0;  
+            height: 452px; 
+            width: 80px; 
+            background-color:rgb(26, 26, 39); 
+            float:left; 
+            padding-right:3px;
+        }
+        .cxPontos{
+            width:60px;
+            height: 70px;
+            margin-top: 20px;
+            margin-left:10px;
+            background-color: black;
+            padding-bottom: 15px;
+        }
+        .textoPontos{
+            color: aliceblue;
+            margin: 2px;
+            padding-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <canvas id="stage" width="452px" height="452px">
+
+    </canvas>
+    
+    <div class="pontos" id="pontos" >
+        <div class="cxPontos">
+            <h4 class="textoPontos"> Pontos: </h4>
+            <h4 class="textoPontos" id="showPontos"> </h4>
+        </div>
+        <div class="cxPontos" >
+            <h4 class="textoPontos"> Maçãs: </h4>
+            <h4 class="textoPontos" id="showMacas"> </h4>
+        </div>
+        <div class="cxPontos">
+            <h4 class="textoPontos">Maçãs Bonus: </h4>
+            <h4 class="textoPontos" id="bonus"> </h4>
+        </div>
+        <div class="cxPontos">
+            <h4 class="textoPontos"> null </h4>
+            <h4 class="textoPontos"> </h4>
+        </div>
+
+    </div>
+    
+    
+</div>
+        
+    
+     
+ 
+       
+    
+    <script type="text/javascript">
+
+        window.onload = function(){
+
+            
+            document.addEventListener("keydown", keyPush);
+            var stage = document.getElementById('stage');
+            var ctx = stage.getContext("2d");
+            
+ 
+        
+
+            setInterval(game, 80);
+            const vel = 1;
+
+            var vx = 0;
+            var vy = 0;
+
+            var px = 10;
+            var py = 15;
+
+            var tp= 15;
+            var qp= 30;
+            var macax = macay = 15;
+            var macaOurox = macaOuroy = -15;
+
+            var macasOuro = 0;
+            var ptns = 0;
+            var macasComidas = 0;
+            var contador=0;
+         
+            var rastro = [];
+             calda = 5;
+
+            function game(){
+
+                px += vx;
+                py += vy;
+                if(px < 0){
+                    px = qp -1;
+                    }
+                if(px > qp - 1){
+                    px = 0;
+                    }
+                if(py < 0){
+                    py = qp-1;
+                    }
+                if(py > qp - 1){
+                    py = 0;
+                    }
+
+
+
+                ctx.fillStyle ="black";
+                ctx.fillRect(0,0, stage.width , stage.height);
+
+                
+                ctx.fillStyle ="red";
+                ctx.fillRect(macax*tp, macay*tp, tp, tp);
+
+                ctx.fillStyle ="yellow"
+                ctx.fillRect(macaOurox*tp, macaOuroy*tp, tp,tp);
+               
+                ctx.fillStyle ="gray";
+                for(var i = 0; i < rastro.length; i++){
+                    ctx.fillRect(rastro[i].x*tp, rastro[i].y*tp, tp-1 ,tp-1);
+                    if(rastro[i].x == px && rastro[i].y == py)
+                    {
+                        vx = 0;
+                        vy = 0;
+                        calda = 5;
+                        macasComidas = 0;
+                        ptns = 0;
+                        macasOuro = 0
+                    } 
+                }
+                
+                rastro.push({x:px, y:py});
+                while(rastro.length > calda){
+                    rastro.shift();
+                }
+
+                if(macax == px && macay == py){
+                    calda++;
+                    macax = Math.floor(Math.random()*qp);
+                    macay = Math.floor(Math.random()*qp);
+                    macasComidas ++;
+                    ptns += 2;
+                    contador ++;
+
+                     if(contador >= 2){
+                         
+                        macaOurox = Math.floor(Math.random()*qp);
+                        macaOuroy = Math.floor(Math.random()*qp);
+                        contador = 0;    
+
+                    } else if(contador >= 2){
+                        macaOurox = -15;
+                        macaOuroy = -15;
+                    }
+                      
+                }
+                if(macaOurox == px && macaOuroy == py){
+                        var bonus = Math.trunc(Math.random()*10);
+                        ptns += bonus;
+                        calda += bonus;
+                        contador = 0;
+                        macaOurox = -15;
+                        macaOuroy = -15;
+                        macasOuro++;
+
+                }
+                
+                   
+
+                document.getElementById('showPontos').innerHTML = ptns;
+                document.getElementById('showMacas').innerHTML = macasComidas;
+                document.getElementById('bonus').innerHTML = macasOuro;
+                    
+                
+
+                
+                
+            } 
+
+            
+
+
+
+            
+
+
+
+            
+            
+            function keyPush(event){
+                switch (event.keyCode) {
+                    case 37:
+                        vx =- vel;
+                        vy= 0 ;                     
+                        break;
+                    case 38:
+                        vx = 0;
+                        vy = -vel
+                        break;
+                    case 39:
+                        vx = vel;
+                        vy = 0;
+                        break;
+                    case 40:
+                        vx = 0;
+                        vy = vel;
+                        break;
+                    default:
+                        break;
+                }
+
+
+            }
+        
+        }  
+   
+        
+         
+    </script>
+
+
+
+</body>
+</html>

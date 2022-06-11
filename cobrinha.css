@@ -1,0 +1,39 @@
+body{
+
+
+}
+
+
+#stage{
+    border:5px solid rgb(104, 99, 99);
+}
+.pontos{
+    margin-left:0;  
+    height: 452px; 
+    width: 80px; 
+    background-color:#0e0d0d; 
+    float:left; 
+    padding-right:3px;
+    margin-right: 5px;
+    border:5px solid rgb(104, 99, 99);
+}
+    
+   
+
+.cxPontos{
+    width:60px;
+    height: 50px;
+    margin-top: 20px;
+    margin-left:10px;
+    background-color: #0e0d0d;
+    padding-bottom: 15px;
+    border: 1.5px solid rgb(104, 99, 99);
+    
+}
+.textoPontos{
+    color: rgb(255, 255, 255);
+    margin: 2px;
+    padding-bottom: 5px;
+    font-family:'Calibri';
+    text-align: center;
+}

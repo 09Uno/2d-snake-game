@@ -1,8 +1,13 @@
+
 body{
-
-
+    background-color: azure;
 }
+main{
 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
 #stage{
     border:5px solid rgb(104, 99, 99);

@@ -12,11 +12,6 @@ window.onload = function () {
     //determina a velocidade da cobrinha baseada no nível
 
 
-
-
-
-
-
     //principais variáveis
     const vel = 1;
 
@@ -34,16 +29,17 @@ window.onload = function () {
     var qp = 30;
     var macax = macay = 15;
     var macaOurox = macaOuroy = -15;
+    var macaDiamanteX = macaDiamantey = -15
 
     var macasOuro = 0;
     var ptns = 0;
     var macasComidas = 0;
     var macaOuroComida;
     var contador = 0;
+    var contador2 = 0;
+
     var vida = 0;
 
-
-    var nivel 
 
     var rastro = [];
     calda = 5;
@@ -70,30 +66,37 @@ window.onload = function () {
 
 
         //Criação dá área principal do jogo
-        ctx.fillStyle = "#0e0d0d";
+
+        ctx.fillStyle = "green";
         ctx.fillRect(0, 0, stage.width, stage.height);
 
         //criação das maçãs
-
-
         const img = new Image(50, 50);
-        img.src = "./imagens/apple.png"
-        ctx.drawImage(img, macax * tp, macay * tp, tp, tp);
+        img.src = "./imagens/apple1.png"
+        ctx.drawImage(img, macax * tp, macay * tp, tp + 5, tp + 5);
 
 
         //criação das maçãs douradas
         const img2 = new Image(50, 50);
         img2.src = "./imagens/gold.png"
-        ctx.drawImage(img2, macaOurox * tp, macaOuroy * tp, tp, tp);
+        ctx.drawImage(img2, macaOurox * tp, macaOuroy * tp, tp + 5, tp + 5);
+
+
+        //criação das maçãs de diamante
+
+        const img3 = new Image(50, 50);
+        img3.src = "./imagens/diamante.png"
+        ctx.drawImage(img3, macaDiamanteX * tp, macaDiamantey * tp, tp + 5, tp + 5);
+
 
         //criação da cobra
-        ctx.fillStyle = "#556B2F";
+        ctx.fillStyle = "black";
         for (var i = 0; i < rastro.length; i++) {
             ctx.fillRect(rastro[i].x * tp, rastro[i].y * tp, tp - 1, tp - 1);
             if (rastro[i].x == px && rastro[i].y == py) {
 
 
-                //condição para dar game over cas a vida seja igual a 0
+                //condição para dar gameover caso a vida seja igual a 0
                 if (vida < 0) {
                     vida = 0;
                 }
@@ -128,21 +131,35 @@ window.onload = function () {
             macasComidas++;
             ptns += 2;
             contador++;
+            contador2++;
 
-            if (contador >= 2) {
+            if (contador >= 5) {
 
                 macaOurox = Math.floor(Math.random() * qp);
                 macaOuroy = Math.floor(Math.random() * qp);
 
-            } if (contador > 2) {
+            } if (contador > 5) {
                 contador = 0;
             }
             if (contador == 0) {
                 macaOurox = -15;
                 macaOuroy = -15;
             }
+            if (contador2 >= 15) {
+                macaDiamanteX = Math.floor(Math.random() * qp);
+                macaDiamantey = Math.floor(Math.random() * qp);
+            }
+            if (contador2 > 15) {
+                contador2 = 0;
+            }
+            if (contador2 == 0) {
+                macaDiamanteX = -15
+                macaDiamantey = -15
+
+            }
 
         }
+
         //mesma condição para maçãs douradas
         if (macaOurox == px && macaOuroy == py) {
             var bonus = Math.trunc(Math.random() * 10);
@@ -153,10 +170,21 @@ window.onload = function () {
             macaOuroy = -15;
             macasComidas++;
             macaOuroComida++
+        }
+
+        //mesma condição para maçãs de diamante
+        if (macaDiamanteX == px && macaDiamantey == py) {
+
+            macaDiamanteX = -15;
+            macaDiamantey = -15;
+            var reduz = Math.trunc(Math.random() * calda)
+            calda = calda - reduz
+            if (calda < 5) {
+                calda = 5
+            }
 
         }
 
-        //função para zerar o tamanho da cobra
 
         //Contador de Record
         if (ptns >= record) {
@@ -164,7 +192,7 @@ window.onload = function () {
         }
 
         //condição para adicionar vidas extras
-        if (macaOuroComida == 1) {
+        if (macaOuroComida == 5) {
             vida++;
             macaOuroComida = 0;
         }
@@ -176,14 +204,8 @@ window.onload = function () {
         document.getElementById('record').innerHTML = record;
         document.getElementById('nivel').innerHTML = nivel;
 
-
-
-
-
-
     }
 
-    //função que regula o nível(velocidade da cobrinha)
 
 
     //Função que controla o  movimento do jogo    
@@ -232,26 +254,33 @@ window.onload = function () {
 
 
     }
-
-    //velocidade de atualização da página
     
-    var tempo
-    if (ptns < 20) {
+    //função que regula o nível(velocidade da cobrinha)
 
-        nivel = 1;
-        tempo = 150
-
-    }
-
-    if (ptns > 20 && ptns < 100)  {
+        var tempo
+        var nivel
 
 
-        nivel = 2
-        tempo = 10
-    }
-    if (ptns > 100) {
-        nivel = 3;
-        tempo = 150
-    }
+            if( ptns < 5){
+
+                nivel = 0;
+                tempo = 150
+            }
+           else if( ptns > 5 && ptns < 80){
+
+                nivel = 2;
+                tempo = 100
+            }
+           else if( ptns > 80){
+
+                nivel = 1;
+                tempo = 80
+            }
+
+        
+        
+        
+    
+    //velocidade de atualização da página
     setInterval(game, tempo);
 }  

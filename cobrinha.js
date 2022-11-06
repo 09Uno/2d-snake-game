@@ -40,15 +40,18 @@ window.onload = function () {
 
     var vida = 0;
 
-
     var rastro = [];
     calda = 5;
 
+
+    //velocidade de atualização da página
+    setInterval(game, 110);
 
 
 
     function game() {
 
+        //condição que faz a movimentação
         px += vx;
         py += vy;
         if (px < 0) {
@@ -110,6 +113,8 @@ window.onload = function () {
                     ptns = 0;
                     macasOuro = 0
                     macaOuroComida = 0;
+                    contador = 0
+                    contador2 = 0
 
                 }
 
@@ -117,7 +122,7 @@ window.onload = function () {
 
         }
 
-        //função para fazer a movimentação da cobra, mantendo o cumprimento
+        //função para fazer a movimentação da cobra, mantendo o tamanho
         rastro.push({ x: px, y: py });
         while (rastro.length > calda) {
             rastro.shift();
@@ -188,6 +193,7 @@ window.onload = function () {
 
         //Contador de Record
         if (ptns >= record) {
+            
             record = ptns;
         }
 
@@ -197,17 +203,19 @@ window.onload = function () {
             macaOuroComida = 0;
         }
 
+
+
         //Funções que fazem a impressão das informações no painel
         document.getElementById('showPontos').innerHTML = ptns;
-        document.getElementById('showMacas').innerHTML = macaOuroComida;
+        document.getElementById('bonus').innerHTML = macaOuroComida;
         document.getElementById('vida').innerHTML = vida;
         document.getElementById('record').innerHTML = record;
-        document.getElementById('nivel').innerHTML = nivel;
+        document.getElementById('tamanho').innerHTML = calda;
+
 
     }
 
-
-
+   
     //Função que controla o  movimento do jogo    
     function keyPush(event) {
         switch (event.keyCode) {
@@ -256,31 +264,6 @@ window.onload = function () {
     }
     
     //função que regula o nível(velocidade da cobrinha)
-
-        var tempo
-        var nivel
-
-
-            if( ptns < 5){
-
-                nivel = 0;
-                tempo = 150
-            }
-           else if( ptns > 5 && ptns < 80){
-
-                nivel = 2;
-                tempo = 100
-            }
-           else if( ptns > 80){
-
-                nivel = 1;
-                tempo = 80
-            }
-
-        
-        
-        
     
-    //velocidade de atualização da página
-    setInterval(game, tempo);
+
 }  

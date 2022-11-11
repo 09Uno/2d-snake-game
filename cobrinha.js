@@ -5,11 +5,6 @@ window.onload = function () {
     document.addEventListener("keydown", keyPush);
     var stage = document.getElementById('stage');
     var ctx = stage.getContext("2d");
-    var record = 0;
-    //var dificuldade ;
-    //Ainda não feito
-
-    //determina a velocidade da cobrinha baseada no nível
 
 
     //principais variáveis
@@ -31,9 +26,8 @@ window.onload = function () {
     var macaOurox = macaOuroy = -15;
     var macaDiamanteX = macaDiamantey = -15
 
-    var macasOuro = 0;
     var ptns = 0;
-    var macasComidas = 0;
+    var record = 0;
     var macaOuroComida;
     var contador = 0;
     var contador2 = 0;
@@ -150,7 +144,7 @@ window.onload = function () {
                 macaOurox = -15;
                 macaOuroy = -15;
             }
-            if (contador2 >= 15) {
+            if (contador2 >= 3) {
                 macaDiamanteX = Math.floor(Math.random() * qp);
                 macaDiamantey = Math.floor(Math.random() * qp);
             }
@@ -198,7 +192,7 @@ window.onload = function () {
         }
 
         //condição para adicionar vidas extras
-        if (macaOuroComida == 5) {
+        if (macaOuroComida == 1) {
             vida++;
             macaOuroComida = 0;
         }
@@ -263,7 +257,6 @@ window.onload = function () {
 
     }
     
-    //função que regula o nível(velocidade da cobrinha)
     
 
 }  
